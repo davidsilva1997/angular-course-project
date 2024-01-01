@@ -6,9 +6,9 @@ import { Subject } from "rxjs";
 
 @Injectable()
 export class RecipeService {
+    recipesChanges = new Subject<Recipe[]>();
     private recipes: Recipe[] = [
         new Recipe(
-            1,
             'Ovos rotos',
             'Ovos com presunto e queijo',
             'https://cdn.vidaativa.pt/uploads/2020/08/receitas-ovos-rotos-850x514.jpg',
@@ -18,7 +18,6 @@ export class RecipeService {
                 new Ingredient('queijo', 1)
             ]),
         new Recipe(
-            2,
             'Francesinha',
             'Pão de forma com queijo e carne',
             'https://img.cuisineaz.com/660x660/2022/07/18/i184751-francesinha.jpeg',
@@ -37,12 +36,22 @@ export class RecipeService {
     }
 
     getRecipe(id: number) {
-        const recipe = this.recipes.find(find => find.id === id);
+        const recipe = this.recipes[id];
 
         return recipe;
     }
 
     addIngredientsToShoppingList(ingredients: Ingredient[]) {
         this.shoppingListService.addIngredients(ingredients);
+    }
+
+    addRecipe(recipe: Recipe) {
+        this.recipes.push(recipe);
+        this.recipesChanges.next(this.recipes.slice());
+    }
+
+    updateRecipe(index: number, recipe: Recipe) {
+        this.recipes[index] = recipe;
+        this.recipesChanges.next(this.recipes.slice());
     }
 }

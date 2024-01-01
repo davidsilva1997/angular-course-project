@@ -8,5 +8,5 @@ import { Recipe } from '../../recipe.model';
 })
 export class RecipeItemComponent {
   @Input('recipe') recipe: Recipe;
-  @Input() id: number;
+  @Input('index') index: number;
 }
