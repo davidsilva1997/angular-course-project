@@ -13,7 +13,7 @@ const appRoutes: Routes = [
     {
         path: 'recipes',
         component: RecipesComponent,
-        resolve: { recipes: recipesResolver },
+        // resolve: { recipes: recipesResolver },
         children: [
             { path: '', component: RecipeStartComponent },
             { path: 'new', component: RecipeEditComponent },
